@@ -32,11 +32,16 @@ const initConfig = async () => {
 const appointmentRoutes = require("./routes/appointments");
 app.use("/api/appointments", appointmentRoutes);
 
-app.use(express.static(path.join(__dirname, "public")));
+// Construye una ruta absoluta desde la raíz del proyecto
+const projectRoot = path.resolve(__dirname, '..'); // Mueve un nivel hacia arriba
+const indexPath = path.join(projectRoot, 'index.html');
 
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
+// Servir el archivo 'index.html' en la raíz del proyecto
+app.get('/', (req, res) => {
+    res.sendFile(indexPath);
 });
+
+
 
 const PORT = process.env.PORT || 5000;
 
